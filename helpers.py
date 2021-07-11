@@ -1,37 +1,37 @@
 '''
 title           : helpers.py
 description     : Helper functions used for parsing the outcome of OpenSea APIs.
-author          : Adil Moujahid
-date_created    : 20210627
-date_modified   : 20210627
+author          : mikejp
+date_created    : 20210711
+date_modified   : 20210711
 version         : 1.0
 python_version  : 3.6.8
 '''
 
-def parse_meebit_data(meebit_dict):
+def parse_coolcats_data(coolcats_dict):
     
-    meebit_id = meebit_dict['token_id']
+    coolcats_id = coolcats_dict['token_id']
     
     try:
-        creator_username = meebit_dict['creator']['user']['username']
+        creator_username = coolcats_dict['creator']['user']['username']
     except:
         creator_username = None
     try:
-        creator_address = meebit_dict['creator']['address']
+        creator_address = coolcats_dict['creator']['address']
     except:
         creator_address = None
     
     try:
-        owner_username = meebit_dict['owner']['user']['username']
+        owner_username = coolcats_dict['owner']['user']['username']
     except:
         owner_username = None
     
-    owner_address = meebit_dict['owner']['address']
+    owner_address = coolcats_dict['owner']['address']
     
-    traits = meebit_dict['traits']
-    num_sales = int(meebit_dict['num_sales'])
+    traits = coolcats_dict['traits']
+    num_sales = int(coolcats_dict['num_sales'])
         
-    result = {'meebit_id': meebit_id,
+    result = {'coolcats_id': coolcats_id,
               'creator_username': creator_username,
               'creator_address': creator_address,
               'owner_username': owner_username,
@@ -47,9 +47,9 @@ def parse_sale_data(sale_dict):
     is_bundle = False
 
     if sale_dict['asset'] != None:
-        meebit_id = sale_dict['asset']['token_id']
+        coolcats_id = sale_dict['asset']['token_id']
     elif sale_dict['asset_bundle'] != None:
-        meebit_id = [asset['token_id'] for asset in sale_dict['asset_bundle']['assets']]
+        coolcats_id = [asset['token_id'] for asset in sale_dict['asset_bundle']['assets']]
         is_bundle = True
     
     
@@ -73,7 +73,7 @@ def parse_sale_data(sale_dict):
     
 
     result = {'is_bundle': is_bundle,
-              'meebit_id': meebit_id,
+              'coolcats_id': coolcats_id,
               'seller_address': seller_address,
               'buyer_address': buyer_address,
               'buyer_username': buyer_username,
